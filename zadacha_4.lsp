@@ -1,26 +1,17 @@
-(defun split-string (str &optional (delimiter #\Space))
-    (let ((splited nil) (word nil))
-        (loop for letter across str do
-                (if (char= letter delimiter)
-                        (progn (push (coerce (nreverse word) 'string) splited)
-                                (setf word nil))
-                        (push letter word)))
-        (push (coerce (nreverse word) 'string) splited)
-        (nreverse splited)))
-
-
-(defun trim-first-char (input_str)
-    ( let ((my_res ""))
-        ( loop for x in (remove "" (split-string input_str) :test #'equal )
-                do ( 
-                    if (string/= "" (substring x 1))
-                     (setf my_res (concatenate 'string my_res " " (substring x 1)))
-                )
-        ) 
-        (substring my_res 1)
-    )
+( defun to2d (lst)
+    ( let ((my-array (make-array '(5 5) :initial-element 1.0)))
+        (loop :for i :from 0 :upto (-(list-length lst) 1)
+              :do(
+                loop :for j :from i :to (+ i ( - (list-length lst) 1))
+                          :do (
+                               setf (aref my-array i (- j i)) (nth (rem j (list-length lst)) lst ) 
+                               )
+              )
+       )
+     (return-from to2d my-array)     
+    )    
 )
 
 
-(print ( trim-first-char "это  ушла   срезка с    плугом"))
+( print ( to2d '(1 2 3 4 5)))
 
