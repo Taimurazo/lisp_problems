@@ -11,16 +11,16 @@
 
 (defun trim-first-char (input_str)
     ( let ((my_res ""))
+        (set-default-character-element-type 'character)
         ( loop for x in (remove "" (split-string input_str) :test #'equal )
                 do ( 
-                    if (string/= "" (substring x 1))
-                     (setf my_res (concatenate 'string my_res " " (substring x 1)))
+                    if (string/= "" (subseq x 1))
+                     (setf my_res (concatenate 'string my_res " " (subseq x 1)))
                 )
         ) 
-        (substring my_res 1)
+        (subseq my_res 1)
     )
 )
 
 
-(print ( trim-first-char "это  ушла   срезка с    плугом"))
-
+(print ( trim-first-char "это ушла срезка с плугом")
