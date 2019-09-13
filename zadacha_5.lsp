@@ -30,48 +30,37 @@
 
 
 (defun mediana (tri)
-  (if (typep (vertex1 tri) 'cart) 
-    (
-      let ((med 0)(s1 0) (s2 0) (s3 0) (v1 (vertex1 tri)) (v2 (vertex2 tri))  (v3 (vertex3 tri)))
-      (setq s1   (sqrt ( + (expt (- (x v2) (x v3)) 2) (expt (- (y v2) (y v3)) 2) )))
-      (setq s2   (sqrt ( + (expt (- (x v1) (x v3)) 2) (expt (- (y v1) (y v3)) 2) )))
-      (setq s3   (sqrt ( + (expt (- (x v2) (x v1)) 2) (expt (- (y v2) (y v1)) 2) )))
-      (setq med  (sqrt (- (+ (* 2 (expt s2 2)) (* 2 (expt s3 2))) (expt s1 2) )))
-      return-from mediana med
-    )
-    (
-      let ((med 0)(s1 0) (s2 0) (s3 0) (v1  (vertex1 tri)) (v2 (vertex2 tri))  (v3 (vertex3 tri)))
-      (setq x1 (* (r v1) (cos (alpha v1)) ))
-      (setq y1 (* (r v1) (sin (alpha v1)) ))
-      (setq x2 (* (r v2) (cos (alpha v2)) ))
-      (setq y2 (* (r v2) (sin (alpha v2)) ))
-      (setq x3 (* (r v3) (cos (alpha v3)) ))
-      (setq y3 (* (r v3) (sin (alpha v3)) ))
-      
-      (setq s1   (sqrt ( + (expt (- x2 x3) 2) (expt (- y2 y3) 2) )))
-      (setq s2   (sqrt ( + (expt (- x1 x3) 2) (expt (- y1 y3) 2) )))
-      (setq s3   (sqrt ( + (expt (- x1 x2) 2) (expt (- y1 y2) 2) )))
-      (setq med  (sqrt (- (+ (* 2 (expt s2 2)) (* 2 (expt s3 2))) (expt s1 2) )))
-      (print med )
-      return-from mediana med
+  (let ((x1 0) (x2 0) (x3) (y1 0) (y2 0) (y3 0) (x4 0) (y4 0))
+  
+   (if (typep (vertex1 tri) 'cart) 
+        (
+         let ()
+          (setq x1 (x (vertex1 tri)))
+          (setq y1 (y (vertex1 tri)))
+          (setq x2 (x (vertex2 tri)))
+          (setq y2 (y (vertex2 tri)))
+          (setq x3 (x (vertex3 tri)))
+          (setq y3 (y (vertex3 tri)))
 
-    )  
-  ) 
+         )
+      (
+       let ((v1  (vertex1 tri)) (v2 (vertex2 tri))  (v3 (vertex3 tri)))
+        (setq y1 (* (r v1) (sin (alpha v1)) ))
+        (setq x2 (* (r v2) (cos (alpha v2)) ))
+        (setq y2 (* (r v2) (sin (alpha v2)) ))
+        (setq x3 (* (r v3) (cos (alpha v3)) ))
+        (setq y3 (* (r v3) (sin (alpha v3)) ))
+
+        )
+   )
+   (setq x4 (/ (+ x2 x3) 2 ))
+   (setq y4 (/ (+ y2 y3) 2 ))
+   
+   ( make-instance 'line :1 (make-instance 'cart :x x1 :y y1) :2 (make-instance 'cart :x x4 :y y4) )
+      
+   
+)  
 )
 
 
-
-
-
-
-;(
-; let ()
-;(setf v1 (make-instance 'cart))
-;(setf (x v1) 10)
-;(print (x v1) )
-
-;(setf v2 (make-instance 'polar))
-;(setf (alpha v2) 10)
-;(print (alpha v2))
-;)
 
